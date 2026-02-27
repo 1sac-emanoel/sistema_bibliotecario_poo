@@ -18,8 +18,8 @@ class Aluno{
         Data data_nascimento;
         
     public:
-        Aluno(std::string m, std::string n, bool a = false, int d, int me, int an)
-            : matricula(m), nome(n), emprestimo(a), data_nascimento{d, me, an} {};
+        Aluno(std::string m, std::string n, int d, int me, int an, bool a = false)
+            : matricula(m), nome(n), data_nascimento{d, me, an}, emprestimo(a){};
 
         
         std::string getMatricula();
@@ -42,7 +42,7 @@ class Livro{
         std::string ano;
         bool disponivel = true;
 
-    public:
+    public: 
         void exibir_dados_livro(std::string nome_livro);
         void emprestar_livro(std::string id, std::string nome_aluno);
 };
