@@ -2,9 +2,9 @@
 #include "Sistema.hpp"
 
 int main(){
+
     Sistema sistema;
-    sistema.cad_Aluno();
-    sistema.listar_Aluno();
+    sistema.menu();
 
     return 0;
 }

@@ -5,23 +5,29 @@
 
 class Sistema{
     private:
+        //para armazenar os alunos
         static const int limite_alunos = 100;
         Aluno* alunos[limite_alunos];
         static int total_Alunos;
+
+        //para armazenar os livros
+        static const int limite_livros = 100;
+        Livro* livros[limite_livros];
+        static int total_Livros;
+
     public:
         void menu();
 
-        //!testar essas funções já feitas
         void cad_Aluno(); //ok
         void editar_Aluno(std::string nome_do_aluno); //ok
         void remover_Aluno(std::string nome_do_aluno); //ok
         void listar_Aluno(); //ok
         
-        void adicionar_Livro();
-        void editar_Livro();
-        void remover_Livro();
+        void adicionar_Livro();//ok 
+        void editar_Livro( std::string& nome_Livro);//ok
 
-        void iniciar();
+        void exibir_dados_livro(std::string& nome_livro);
+        void emprestar_livro(std::string& id, std::string& nome_aluno);
         
 };
 

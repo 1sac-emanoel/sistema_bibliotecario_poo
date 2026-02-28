@@ -16,21 +16,12 @@ std::string Aluno::getNome(){
     return nome;
 };
 
-bool Aluno::getEmprestimo(){
-    return emprestimo;
-};
-
 Aluno::Data Aluno::getData(){
     return data_nascimento;
 };
 
 
 //definindo os setters
-void Aluno::setEmprestimo(bool pegou_emprestado){
-    if(pegou_emprestado == true){
-        emprestimo == pegou_emprestado;
-    };
-};
 
 void Aluno::setNome(std::string name){
     nome = name;
@@ -49,22 +40,45 @@ void Aluno::setData(int d, int me, int an){
 //================
 //Classe livro
 //===============
-void Livro::exibir_dados_livro(std::string nome_livro){
-    if(nome_livro == titulo){
-        titulo = nome_livro;
-    }else{
-        std::cout << "Livro não encontrado." << std::endl;
-    };
-};
 
-void Livro::emprestar_livro(std::string id, std::string nome_aluno){
-    if( id == id_livro && disponivel == true){
-        disponivel = false;
-        std::string nome_emprestado_para = nome_aluno;
-        std::cout << "Livro emprestado para " << nome_aluno << "\n";
-    } else {
-        std::cout << "Livro indisponivel.\n";
-    };
-    
-};
+// getters
+
+std::string Livro::getIdLivro(){
+    return id_livro;
+}
+
+std::string Livro::getTitulo(){
+    return titulo;
+}
+
+std::string Livro::getAutor(){
+    return autor;
+}
+
+std::string Livro::getAno(){
+    return ano;
+}
+
+bool Livro::getDisponivel(){
+    return disponivel;
+}
+
+
+// setters
+
+void Livro::setTitulo(std::string& Titulo){
+    titulo = Titulo;
+}
+
+void Livro::setAutor(std::string& Autor){
+    autor = Autor;
+}
+
+void Livro::setAno(std::string& Ano){
+    ano = Ano;
+}
+
+void Livro::setDisponivel(bool Disponivel){
+    disponivel = Disponivel;
+}
 

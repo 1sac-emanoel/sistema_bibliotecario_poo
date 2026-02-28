@@ -1,17 +1,3 @@
-/*
-====================================
-   SISTEMA DE GERENCIAMENTO
-====================================
-
-1 - Cadastrar
-2 - Editar
-3 - Remover
-4 - Listar
-0 - Sair
-
-Escolha uma opção:
-*/
-
 #include <iostream>
 #include <string>
 #include "Sistema.hpp" 
@@ -28,8 +14,8 @@ int Sistema::total_Alunos = 0;
 void Sistema::cad_Aluno(){
 
    //verificando o espaco no array
-   if(total_Alunos < 101){
-
+   if(total_Alunos < 100){
+      
       //lendo os dados do usuario 
       std::string Nome;
       std::string Matricula;
@@ -171,11 +157,154 @@ void Sistema::listar_Aluno(){
 ====================================
 */
 
+int Sistema::total_Livros = 0;
 
+void Sistema::adicionar_Livro(){
 
+   //verificando espaco no array
+   if(total_Livros < 100){
+      
+      //definindo dados do livro 
+      std::string idLivro;
+      std::string Titulo;
+      std::string Autor;
+      std::string Ano;
 
+      std::cout << "Id do livro: " << std::endl;
+      std::cin >> idLivro;
+      std::cout << "" << std::endl;
 
+      std::cout << "Titulo do livro: " << std::endl;
+      std::cin >> Titulo;
+      std::cout << "" << std::endl;
 
+      std::cout << "Autor do livro: " << std::endl;
+      std::cin >> Autor;
+      std::cout << "" << std::endl;
+
+      std::cout << "Ano de publicacao do livro: " << std::endl;
+      std::cin >> Ano ;
+      std::cout << "" << std::endl; 
+
+      Livro* novoLivro = new Livro(idLivro, Titulo, Autor, Ano);
+
+      livros[total_Livros] = novoLivro;
+
+      total_Livros++;
+
+      std::cout << "Livro registrado com sucesso!" << std::endl;
+      std::cout << "" << std::endl;
+
+   }else{
+      std::cout << "Limite maximo de livros atingido." << std::endl;
+      std::cout << "" << std::endl;
+   };
+};
+
+void Sistema::editar_Livro( std::string& nome_Livro){
+
+   bool encontrado = false;
+
+   for( int i = 0; i < total_Livros; i++){
+
+      if(nome_Livro == livros[i]->getTitulo()){
+         encontrado = true;
+         int opcao;
+
+         std::cout << "[1]-Titulo\n [2]-Autor\n [3]-Ano\n" << std::endl;
+         std::cout << "Qual opcao voce deseja: " << std::endl;
+         std::cin >> opcao;
+         std::cout << "" << std::endl;
+
+         switch(opcao){
+            case 1:{
+               std::string novoTitulo;
+               std::cout << "Titulo: " << std::endl;
+               std::cin >> novoTitulo;
+               std::cout << "" << std::endl;
+
+               livros[i]->setTitulo(novoTitulo);
+
+               std::cout << "Mudanca de titulo feita com sucesso!" << std::endl;
+               std::cout << "" << std::endl;
+               break;
+            }
+            case 2:{
+               std::string novoAutor;
+               std::cout << "Autor " << std::endl;
+               std::cin >> novoAutor;
+               std::cout << "" << std::endl;
+
+               livros[i]->setAutor(novoAutor);
+
+               std::cout << "Mudanca de autor feita com sucesso!" << std::endl;
+               std::cout << "" << std::endl;
+               break;
+            }
+            case 3:{
+               std::string novoAno;
+               std::cout << "Ano: " << std::endl;
+               std::cin >> novoAno;
+               std::cout << "" << std::endl;
+
+               livros[i]->setAno(novoAno);
+
+               std::cout << "Mudanca de ano feita com sucesso!" << std::endl;
+               std::cout << "" << std::endl;
+               break;
+            }
+            default:
+               std::cout << "Opcao incorreta." << std::endl;
+               std::cout << "" << std::endl;
+               break;
+         };
+      };
+   };
+   if(encontrado == false){
+      std::cout << "Livro não encontrado." << std::endl;
+      std::cout << "" << std::endl;
+   };
+};
+
+//implementacao de entidade Livro
+
+void Sistema::exibir_dados_livro(std::string& nome_livro){
+   bool encontrou = false;
+
+   for(int i = 0; i < total_Livros; i++){
+        
+      if(nome_livro == livros[i]->getTitulo()){
+            encontrou = true;
+            std::cout << "Livro encontrado!" << std::endl;
+            std::cout << "" << std::endl;
+         };
+      };
+
+   if(encontrou == false){
+      std::cout << "Livro não encontrado." << std::endl;
+   };
+
+};
+
+void Sistema::emprestar_livro(std::string& id, std::string& nome_aluno){
+   
+   bool encontrou = false;//encontrou o id do livro 
+
+   for(int i = 0; i < total_Livros; i++){
+      if(id == livros[i]->getIdLivro()){
+         encontrou = true;   
+         if(livros[i]->getDisponivel() == true){
+            livros[i]->setDisponivel(false);
+            std::cout << "Livro emprestado para " << nome_aluno << "\n";
+         }else{
+            std::cout << "Livro indisponivel.\n";
+         };
+      };
+   };
+   if(encontrou == false){
+      std::cout << "Livro nao encontrado.\n";
+   };
+};
 
 /*
 ====================================
@@ -183,17 +312,138 @@ void Sistema::listar_Aluno(){
 ====================================
 */
 void Sistema::menu(){
-   int opcao;
-   std::cout << "[1]-Aluno\n [2]-Livro\n" << std::endl;
-   std::cout << "Voce deseja gerenciar aluno ou livro: " << std::endl;
-   std::cin >> opcao;
 
-   if(opcao = 1){
-      //menu de aluno 
+   int opcao = -1;
 
-   }else if(opcao = 2){
+   while(opcao != 0){
 
-   }else{
-      std::cout << "Opcao invalida." << std::endl;
+      std::cout << "==============================" << std::endl;
+      std::cout << "     SISTEMA DA BIBLIOTECA    " << std::endl;
+      std::cout << "==============================" << std::endl;
+      std::cout << "[1] - Gerenciar Alunos" << std::endl;
+      std::cout << "[2] - Gerenciar Livros" << std::endl;
+      std::cout << "[3] - Emprestar Livro" << std::endl;
+      std::cout << "[0] - Sair" << std::endl;
+      std::cout << "" << std::endl;
+
+      std::cout << "Escolha uma opcao: ";
+      std::cin >> opcao;
+      std::cout << "" << std::endl;
+
+      switch(opcao){
+
+         case 1:{ // MENU ALUNOS
+
+               int opAluno;
+
+               std::cout << "====== MENU ALUNO ======" << std::endl;
+               std::cout << "[1] - Cadastrar Aluno" << std::endl;
+               std::cout << "[2] - Editar Aluno" << std::endl;
+               std::cout << "[3] - Remover Aluno" << std::endl;
+               std::cout << "[4] - Listar Alunos" << std::endl;
+               std::cout << "" << std::endl;
+
+               std::cout << "Escolha uma opcao: ";
+               std::cin >> opAluno;
+               std::cout << "" << std::endl;
+
+               if(opAluno == 1){
+                  cad_Aluno();
+
+               }else if(opAluno == 2){
+                  std::string nome;
+                  std::cout << "Digite o nome do aluno: ";
+                  std::cin >> nome;
+                  std::cout << "" << std::endl;
+
+                  editar_Aluno(nome);
+
+               }else if(opAluno == 3){
+                  std::string nome;
+                  std::cout << "Digite o nome do aluno: ";
+                  std::cin >> nome;
+                  std::cout << "" << std::endl;
+
+                  remover_Aluno(nome);
+
+               }else if(opAluno == 4){
+                  listar_Aluno();
+
+               }else{
+                  std::cout << "Opcao invalida." << std::endl;
+                  std::cout << "" << std::endl;
+               };
+
+               break;
+         };
+
+         case 2:{ // MENU LIVROS
+
+               int opLivro;
+
+               std::cout << "====== MENU LIVRO ======" << std::endl;
+               std::cout << "[1] - Adicionar Livro" << std::endl;
+               std::cout << "[2] - Editar Livro" << std::endl;
+               std::cout << "[3] - Exibir Livro" << std::endl;
+               std::cout << "" << std::endl;
+
+               std::cout << "Escolha uma opcao: ";
+               std::cin >> opLivro;
+               std::cout << "" << std::endl;
+
+               if(opLivro == 1){
+                  adicionar_Livro();
+
+               }else if(opLivro == 2){
+                  std::string titulo;
+                  std::cout << "Digite o titulo do livro: ";
+                  std::cin >> titulo;
+                  std::cout << "" << std::endl;
+
+                  editar_Livro(titulo);
+
+               }else if(opLivro == 3){
+                  std::string titulo;
+                  std::cout << "Digite o titulo do livro: ";
+                  std::cin >> titulo;
+                  std::cout << "" << std::endl;
+
+                  exibir_dados_livro(titulo);
+
+               }else{
+                  std::cout << "Opcao invalida." << std::endl;
+                  std::cout << "" << std::endl;
+               };
+
+               break;
+         };
+
+         case 3:{ // EMPRESTAR LIVRO
+
+               std::string idLivro;
+               std::string nomeAluno;
+
+               std::cout << "Digite o ID do livro: ";
+               std::cin >> idLivro;
+               std::cout << "" << std::endl;
+
+               std::cout << "Digite o nome do aluno: ";
+               std::cin >> nomeAluno;
+               std::cout << "" << std::endl;
+
+               emprestar_livro(idLivro, nomeAluno);
+
+               break;
+         };
+
+         case 0:
+               std::cout << "Encerrando sistema..." << std::endl;
+               break;
+
+         default:
+               std::cout << "Opcao invalida." << std::endl;
+               std::cout << "" << std::endl;
+               break;
+      };
    };
 };
