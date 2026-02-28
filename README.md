@@ -24,15 +24,25 @@ O projeto utiliza:
 ## 🏗 2. Estrutura de Diretórios
 
 /ProjetoBiblioteca 
+
 │ ├── main.cpp 
+
 │ 
+
 ├── entidade/ 
+
 │ ├── Entidade.hpp 
+
 │
+
 └── Entidade.cpp 
+
 │ ├── sistema/ 
+
 │ ├── Sistema.hpp 
+
 │ └── Sistema.cpp │
+
 └── README.md
 
 ------------------------------------------------------------------------
